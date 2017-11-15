@@ -1,6 +1,17 @@
 body {
-  padding: 50px;
+  padding: 30px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-image: url(tape.jpeg);
+    background-position: 10px 110px;
+    background-size: cover;
+}
+
+#textFields {
+    float: right;
+    font-family: Tahoma, Geneva, sans-serif;
+    background-color: beige;
+    border: solid 5px black;
+    padding: 5px;
 }
 
 a {
