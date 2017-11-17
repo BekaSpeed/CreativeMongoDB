@@ -1,1 +1,6 @@
 nohup: ignoring input
+[0mGET /playlist [32m200 [0m16.938 ms - 2[0m
+(node:1752) DeprecationWarning: Mongoose: mpromise (mongoose's default promise library) is deprecated, plug in your own promise library instead: http://mongoosejs.com/docs/promises.html
+[0mPOST /playlist [32m200 [0m54.277 ms - 78[0m
+[0mGET /playlist [32m200 [0m6.244 ms - 80[0m
+[0mPUT /playlist/5a0e568fc64b1506d80db6cd/upvote [32m200 [0m8.117 ms - 78[0m

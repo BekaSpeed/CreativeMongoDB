@@ -1,37 +1,46 @@
-angular.module('playlist',[])
+angular.module('video',[])
   .controller('vidCtrl', [
   '$scope','$http',
   function($scope,$http) {
     $scope.videos = [];
-    $scope.create = function(playlist) {
-      return $http.post('/playlist', playlist).success(function(data){
-       console.log("Successfully added shiz");
-       $scope.videos.push(data);
+    $scope.create = function(video) {
+      return $http.post('/playlist', video).success(function(data){
+        $scope.videos.push(data);
       });
     };
     $scope.addVideo = function() {
-      var newVideo = {title:$scope.userList,url:$scope.userUrl};
+      var newVideo = {title:$scope.userList,url:$scope.userUrl,upvotes:0};
       $scope.create({
-         title: $scope.userList,
-         url: $scope.userUrl,
+        title: $scope.userList,
+	url: $scope.userUrl,
+        upvotes: 0,
       });
       $scope.userList = "";
       $scope.userUrl = "";
     };
-    $("#getVideos").click(function() {
-    $.getJSON('video', function(data) {
-      console.log(data);
-      var everything = "";
-      everything += "<div class=""+carousel slide+"" data-ride="carousel"><div class=""+carousel-inner+"">";
-      for(var video in data) {
-        vid = data[video];
-        everything += "<div class="carousel-item"><iframe width="560" height="315" src="https://www.youtube.com/embed/"+vid.userUrl+"" frameborder="0" allowfullscreen></iframe>";
-	everything += "<div class="carousel-caption d-none d-md-block"><h3>vid.userList</h3></div>";
-      }
-      everything += "</div>";
-      $("#videos").html(everything);
-    });
-  });
+    $scope.incrementUpvotes = function (video) {
+      $scope.upvote(video);
+    };
+    $scope.upvote = function(video) {
+      return $http.put('/playlist/' + video._id + '/upvote')
+        .success(function(data){
+          console.log("upvote worked");
+          video.upvotes += 1;
+        });
+    };
+    $scope.getAll = function() {
+      return $http.get('/playlist').success(function(data){
+        angular.copy(data, $scope.videos);
+      });
+    };
+    $scope.getAll();
+    $scope.delete = function(video) {
+      $http.delete('/playlist/' + video._id )
+        .success(function(data){
+          console.log("delete worked");
+        });
+      $scope.getAll();
+    };
   }
 ]);
 if (!window['YT']) {var YT = {loading: 0,loaded: 0};}
