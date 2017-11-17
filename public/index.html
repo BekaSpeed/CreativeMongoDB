@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Class Favorites: Video Edition</title>
 <link rel="stylesheet" href="stylesheets/style.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<script src="javascript/app.js"></script>
+
 </head>
-  <body>
+  <body ng-app="playlist" ng-controller="vidCtrl">
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/tHg08RnpSqY" frameborder="0" allowfullscreen></iframe>
       <div id="textFields">
     
 	<h2>Add Content to Database</h2>
-	<form id="userInput">
-		YouTube Url: <input type="text" name="userUrl"><br><br>
-		List Name: <input type="text" name="userList"><br><br>
-		<input id="userSubmit" type="submit" value="Submit">
+	<form ng-submit="addVideo()"id="userInput">
+	<div class="form-group">
+    	  <label for="youTubeID">Video Name</label>
+    	  <input type="text" class="form-control" id="videoName" ng-model="userList" aria-describedby="userHelp" placeholder="Give your video a name!">
+   	</div>
+	<div class="form-group">
+    	  <label for="youTubeID">YouTube ID</label>
+    	  <input type="text" class="form-control" id="youTubeID" ng-model="userUrl" aria-describedby="userHelp" placeholder="Enter YouTube video ID">
+    	  <small id="userHelp" class="form-text text-muted">The YouTube video ID can be found at the end of the video's url after the "=".</small>
+	</div>
+        <button type="submit" class="btn btn-secondary">Add your video</button>
 	</form> 
 	<h2>Get Content from Database</h2>
-	<form id="getData">
-		Search List Name:<input type="text" name="dataList"> <input id="listSubmit" type="submit" value="Search"> <br><br>
-		Search Url:      <input type="text" name="dataUrl"> <input id="urlSubmit" type="submit" value="Search"> <br><br>
-		Search Any:      <input type="text" name="dataWildcard"> <input id="wildcardSubmit" type="submit" value="Search"> <br><br>
-	</form>
+	  <button id="getVideos" class="btn btn-secondary">View the class playlist</button>
       </div>
+      <div>
 	<h2>Content Will Appear Here</h2>
-	<div id="contentPlaceHolder">
-	</div>
+	  <div id="videos">
+	  </div>
+      </div>
 <script type="text/javascript">
   var tag = document.createElement('script');
   tag.id = 'iframe-demo';
